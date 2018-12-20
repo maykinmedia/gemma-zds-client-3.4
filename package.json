@@ -1,5 +1,5 @@
 {
-  "name": "gemma-zds-client",
+  "name": "gemma-zds-client-3.4",
   "version": "0.2.0",
   "description": "Convertor voor OAS 2.0 -> 3.0",
   "main": "index.js",
