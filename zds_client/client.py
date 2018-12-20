@@ -42,13 +42,15 @@ def get_headers(spec: dict, operation: str) -> dict:
             if method['operationId'] != operation:
                 continue
 
-            method_parameters = filter_header_params(method.get('parameters', []))
+            method_parameters = filter_header_params(
+                method.get('parameters', []))
 
             for param in path_parameters + method_parameters:
                 enum = param['schema'].get('enum', [])
                 default = param['schema'].get('default')
 
-                assert len(enum) == 1 or default, "Can't choose an appropriate default header value"
+                assert len(
+                    enum) == 1 or default, "Can't choose an appropriate default header value"
                 headers[param['name']] = default or enum[0]
 
     return headers
@@ -67,7 +69,7 @@ class Client:
 
     auth = None
 
-    def __init__(self, service: str, base_path: str='/api/v1/'):
+    def __init__(self, service: str, base_path: str = '/api/v1/'):
         self.service = service
         self.base_path = base_path
 
@@ -96,7 +98,7 @@ class Client:
             self.auth = ClientAuth(**auth)
 
     @classmethod
-    def load_config(cls, path: str=None, **manual):
+    def load_config(cls, path: str = None, **manual):
         """
         Initialize the client configuration.
 
@@ -167,11 +169,13 @@ class Client:
             return self._base_url
 
         if self.CONFIG is None:
-            raise RuntimeError("You need to load the config first through `Client.load_config(path)`")
+            raise RuntimeError(
+                "You need to load the config first through `Client.load_config(path)`")
         try:
             config = self.CONFIG[self.service]
         except KeyError:
-            raise KeyError(f"Service {self.service} unknown, did you specify it in the config?")
+            raise KeyError(
+                "Service {} unknown, did you specify it in the config?".format(self.service))
         return "{scheme}://{host}:{port}{path}".format(
             scheme=config['scheme'],
             host=config['host'],
@@ -251,9 +255,11 @@ class Client:
         response.raise_for_status()
 
         spec = yaml.safe_load(response.content)
-        spec_version = response.headers.get('X-OAS-Version', spec.get('openapi', spec.get('swagger', '')))
+        spec_version = response.headers.get(
+            'X-OAS-Version', spec.get('openapi', spec.get('swagger', '')))
         if not spec_version.startswith('3.0'):
-            raise ValueError("Unsupported spec version: {}".format(spec_version))
+            raise ValueError(
+                "Unsupported spec version: {}".format(spec_version))
 
         self._schema = spec
 

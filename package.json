@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VNG-Realisatie/gemma-zds-client.git"
+    "url": "git+https://github.com/maykinmedia/gemma-zds-client-3.4.git"
   },
   "keywords": [
     "gemma",
@@ -24,9 +24,9 @@
   "author": "VNG-Realisatie",
   "license": "EUPL-1.2",
   "bugs": {
-    "url": "https://github.com/VNG-Realisatie/gemma-zds-client/issues"
+    "url": "https://github.com/maykinmedia/gemma-zds-client-3.4/issues"
   },
-  "homepage": "https://github.com/VNG-Realisatie/gemma-zds-client",
+  "homepage": "https://github.com/maykinmedia/gemma-zds-client-3.4",
   "dependencies": {
     "swagger2openapi": "^2.11.16"
   }
