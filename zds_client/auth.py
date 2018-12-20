@@ -27,7 +27,8 @@ class ClientAuth:
         self.client_id = client_id
 
         if secret is None:
-            warnings.warn("`None` secret received -  casting to empty string", UserWarning)
+            warnings.warn(
+                "`None` secret received -  casting to empty string", UserWarning)
             secret = ''
 
         self.secret = secret
@@ -62,10 +63,11 @@ class ClientAuth:
             headers = {
                 'client_identifier': self.client_id,
             }
-            encoded = jwt.encode(payload, self.secret, headers=headers, algorithm='HS256')
+            encoded = jwt.encode(payload, self.secret,
+                                 headers=headers, algorithm='HS256')
             encoded = encoded.decode()  # bytestring to string
 
             self._credentials = {
-                'Authorization': f"Bearer {encoded}"
+                'Authorization': "Bearer {}".format(encoded)
             }
         return self._credentials

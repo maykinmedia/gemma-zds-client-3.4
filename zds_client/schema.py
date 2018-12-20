@@ -27,7 +27,8 @@ def get_operation_url(spec: dict, operation: str, pattern_only=False, **kwargs) 
                     path = path.format(**format_kwargs)
                 return '{base_path}{path}'.format(base_path=base_path, path=path)
 
-    raise ValueError('Operation {operation} not found'.format(operation=operation))
+    raise ValueError(
+        'Operation {operation} not found'.format(operation=operation))
 
 
 def path_to_bits(path: str, transform=reversed) -> list:
@@ -86,7 +87,7 @@ class Schema:
         for server in self.spec['servers']:
             if url.startswith(server['url']):
                 return server['url']
-        raise ValueError(f"No matching server found for '{url}'")
+        raise ValueError("No matching server found for '{}'".format(url))
 
     def get_relative_path_parts(self, url: str) -> list:
         """
@@ -132,7 +133,7 @@ class Schema:
 
             return path_config
 
-        raise ValueError(f"No operation found for url '{url}'")
+        raise ValueError("No operation found for url '{}'".format(url))
 
     def _lookup_schema(self, schema: dict) -> Union[List, Mapping]:
         """
@@ -146,7 +147,8 @@ class Schema:
             ref = schema.get('$ref')
 
         if ref is None:
-            raise NotImplementedError("Currently only schema refs are supported")
+            raise NotImplementedError(
+                "Currently only schema refs are supported")
 
         _schema = self.spec.copy()
         for key in ref.split('/')[1:]:
